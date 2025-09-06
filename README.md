@@ -1,5 +1,6 @@
 # raspibench
 
+```
 usage: raspibench.py [-h] -c COMMAND [-i INTERVAL] [-o OUTPUT] [--pre PRE]
                      [--post POST]
 
@@ -17,3 +18,4 @@ options:
                         command (default: 30.0)
   --post POST           Seconds to sample at idle after starting the load
                         command (default: 30.0)
+```
