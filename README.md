@@ -14,8 +14,8 @@ options:
                         Sampling interval in seconds (default: 1)
   -o OUTPUT, --output OUTPUT
                         CSV output file path.
-  --pre PRE             Seconds to sample at idle before starting the load
-                        command (default: 30.0)
-  --post POST           Seconds to sample at idle after starting the load
-                        command (default: 30.0)
+  --pre PRE             Seconds to sample before starting the load command
+                        (default: 30.0)
+  --post POST           Seconds to sample after completing the load command
+                        (default: 30.0)
 ```

@@ -52,13 +52,13 @@ if __name__ == '__main__':
         '--pre',
         type=float,
         default=10.0,
-        help='Seconds to sample at idle before starting the load command (default: 30.0)',
+        help='Seconds to sample before starting the load command (default: 30.0)',
     )
     parser.add_argument(
         '--post',
         type=float,
         default=60.0,
-        help='Seconds to sample at idle after starting the load command (default: 30.0)',
+        help='Seconds to sample after completing the load command (default: 30.0)',
     )
     args = parser.parse_args()
 
