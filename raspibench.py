@@ -9,23 +9,28 @@ import time
 
 CPUFREQ_CMD = ['vcgencmd', 'measure_clock', 'arm']
 THERMAL_PATH = '/sys/class/thermal/thermal_zone0/temp'
+COOLER_PATH = '/sys/class/thermal/cooling_device0/cur_state'
 
 
 def sample_once():
     _, freq = subprocess.run(CPUFREQ_CMD, capture_output=True, text=True).stdout.split('=')
     temp = open(THERMAL_PATH).read()
-    return int(freq), int(temp)
+    try:
+        cooler = open(COOLER_PATH).read()
+    except:
+        cooler = '0'
+    return int(freq), int(temp), bool(int(cooler))
 
 
 def sampler(stop_event, started_event, interval, path):
     with open(path, 'w') as f:
-        print('phase, frequency, tempareture', file=f)
+        print('phase, frequency, tempareture, cooler', file=f)
         current = time.time()
         while not stop_event.is_set():
-            phase = 'load' if started_event.is_set() else 'idle'
-            freq, temp = sample_once()
-            print(f'{phase}, {freq}, {temp}', file=sys.stderr)
-            print(f'{phase}, {freq}, {temp}', file=f)
+            phase = True if started_event.is_set() else False
+            freq, temp, cooler = sample_once()
+            print(f'{int(phase)}, {freq}, {temp}, {int(cooler)}', file=sys.stderr)
+            print(f'{int(phase)}, {freq}, {temp}, {int(cooler)}', file=f)
             current += interval
             remain = current - time.time()
             if remain > 0:
